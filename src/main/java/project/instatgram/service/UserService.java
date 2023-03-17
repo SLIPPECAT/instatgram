@@ -27,7 +27,6 @@ public class UserService {
     public void signup(SignupRequestDto requestDto){
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
-        // 비밀번호 암호화
         String encodedPassword = passwordEncoder.encode(password);
         String nickname = requestDto.getNickname();
         // 사용자 확인
@@ -52,11 +51,9 @@ public class UserService {
         String password = requestDto.getPassword();
         User user = userRepository.findByUsername(username)
                 .orElseThrow(()->new IllegalArgumentException("사용자가 존재하지 않습니다."));
-        // 저장된 암호와 입력왼 암호 비교
         if(!passwordEncoder.matches(password, user.getPassword())){
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
-        // Jwt 토큰 발급
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
     }
 }

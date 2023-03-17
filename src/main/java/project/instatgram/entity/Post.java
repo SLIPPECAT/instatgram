@@ -4,9 +4,10 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import project.instatgram.dto.PostRequestDto;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Getter
 @Entity
@@ -21,13 +22,6 @@ public class Post extends Timestamped{
     private String content;
     private String nickname;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "comment_id")
-    private List<Comment> comments =new ArrayList<>();
 
     public Post(String title, String content, String nickname) {
         this.title = title;

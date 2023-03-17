@@ -2,7 +2,6 @@ package project.instatgram.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project.instatgram.requestdto.SignupRequestDto;
 
 import javax.persistence.*;
 

@@ -13,9 +13,11 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class Timestamped {
 
+    // 처음 만들었을때의 시간
     @CreatedDate
     private LocalDateTime createdAt;
 
+    // 마지막 수정한 시간
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 }

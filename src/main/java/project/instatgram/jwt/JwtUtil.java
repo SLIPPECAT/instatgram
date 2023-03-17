@@ -103,4 +103,10 @@ public class JwtUtil {
 //            throw new CustomException(ErrorCode.INVALID_TOKEN);
 //        }
 //    }
+
+    // 인증 객체 생성
+    public Authentication createAuthentication(String username) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+    }
 }

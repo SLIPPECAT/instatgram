@@ -29,7 +29,6 @@ public class Post extends Timestamped{
     @JoinColumn(name = "comment_id")
     private List<Comment> comments =new ArrayList<>();
 
-
     public Post(String title, String content, String nickname) {
         this.title = title;
         this.content = content;

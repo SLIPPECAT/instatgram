@@ -2,6 +2,7 @@ package project.instatgram.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project.instatgram.entity.Comment;
 import project.instatgram.entity.Post;
 
 import java.time.LocalDateTime;

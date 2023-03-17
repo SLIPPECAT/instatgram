@@ -2,18 +2,16 @@ package project.instatgram.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class SecurityExceptionDto {
 
-    private int status;
+    private int statusCode;
     private String msg;
 
-    public SecurityExceptionDto(int status, String msg) {
-        this.status = status;
+    public SecurityExceptionDto(int statusCode, String msg){
+        this.statusCode = statusCode;
         this.msg = msg;
     }
 }

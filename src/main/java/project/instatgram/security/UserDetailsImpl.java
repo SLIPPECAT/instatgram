@@ -21,6 +21,11 @@ public class UserDetailsImpl implements UserDetails {
         this.password = password;
     }
 
+    public User user() {
+        return user;
+      
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         UserRoleEnum role = user.getRole();

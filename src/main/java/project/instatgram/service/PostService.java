@@ -11,7 +11,6 @@ import project.instatgram.dto.PostResponseDto;
 import project.instatgram.entity.Post;
 import project.instatgram.entity.User;
 import project.instatgram.repository.PostRepository;
-import project.instatgram.repository.UserRepository;
 import project.instatgram.responsedto.StatusResponseDto;
 import project.instatgram.security.UserDetailsImpl;
 
@@ -24,6 +23,7 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+
     // 등록
     @Transactional
     public PostResponseDto createPost(PostRequestDto postRequestDto) {
@@ -44,29 +44,16 @@ public class PostService {
     }
 
     // 삭제
-    public ResponseEntity<Object> delete(Long id, String userId) {
-        Post post = postRepository.findById(id).orElseThrow(
-                ()-> new IllegalArgumentException("게시글이 존재하지 않습니다."));
-
-        // 이거 쓴 사람이랑 로그인 된 사람일치
-        if(!userId.equals(post.getUser().getUsername())){
-            throw new IllegalArgumentException("사용자가 일치하지 않습니다.");
-        }
-        postRepository.delete(post);
+    public ResponseEntity delete(Long id) {
+        Post post = getpost(id);
+        postRepository.deleteById(id);
         StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "게시물 삭제 성공!");
         return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
     }
     // 수정
     @Transactional
-    public ResponseEntity<Object> updatePost(Long id, PostRequestDto postRequestDto, String userId) {
-        Post post = postRepository.findById(id).orElseThrow(
-                ()-> new IllegalArgumentException("게시글이 존재하지 않습니다."));
-
-        // 이거 쓴 사람이랑 로그인 된 사람일치
-        if(!userId.equals(post.getUser().getUsername())){
-            throw new IllegalArgumentException("사용자가 일치하지 않습니다.");
-        }
-
+    public ResponseEntity updatePost(Long id, PostRequestDto postRequestDto) {
+        Post post = getpost(id);
         post.updatePost(postRequestDto);
         StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "게시물 수정 성공!");
         return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
@@ -77,5 +64,10 @@ public class PostService {
                 () -> new IllegalArgumentException("추후에 커스텀!")
         );
     }
+
+    // 게시물을 작성한사람
+    //지금 로그인한사람이 동일한지
+    //
+    //그리고 그사람이 일반 유저인지 어드민인지
 }
 

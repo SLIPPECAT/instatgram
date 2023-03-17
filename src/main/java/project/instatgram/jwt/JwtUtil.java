@@ -91,4 +91,22 @@ public class JwtUtil {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
+
+//    public AuthenticatedUser validateAndGetInfo(String token) {
+//        if (this.validateToken(token)) {
+//            Claims claims = this.getUserInfoFromToken(token);
+//            String username = claims.getSubject();
+//            UserRoleEnum role = UserRoleEnum.valueOf(claims.get("auth").toString());  // "USER", "ADMIN"  // String을 갖고 Enum객체 만들기
+//            return new AuthenticatedUser(role, username);
+//        } else {
+//            // 이 부분에서 문제가 되고 있다.
+//            throw new CustomException(ErrorCode.INVALID_TOKEN);
+//        }
+//    }
+
+    // 인증 객체 생성
+    public Authentication createAuthentication(String username) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+    }
 }

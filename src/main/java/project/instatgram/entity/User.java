@@ -2,6 +2,7 @@ package project.instatgram.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project.instatgram.requestdto.SignupRequestDto;
 
 import javax.persistence.*;
 
@@ -10,8 +11,7 @@ import javax.persistence.*;
 @Entity(name = "users")
 public class User extends Timestamped{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 

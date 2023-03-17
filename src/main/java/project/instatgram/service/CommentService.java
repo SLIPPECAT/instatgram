@@ -9,9 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import project.instatgram.dto.CommentRequestDto;
 import project.instatgram.dto.CommentResponseDto;
 import project.instatgram.entity.Comment;
+import project.instatgram.entity.Post;
 import project.instatgram.entity.User;
 import project.instatgram.entity.UserRoleEnum;
 import project.instatgram.repository.CommentRepository;
+import project.instatgram.repository.PostRepository;
 import project.instatgram.responsedto.StatusResponseDto;
 
 @Slf4j

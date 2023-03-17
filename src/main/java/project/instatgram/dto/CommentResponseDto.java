@@ -4,6 +4,8 @@ import lombok.Getter;
 import project.instatgram.entity.Comment;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 public class CommentResponseDto {
@@ -23,6 +25,7 @@ public class CommentResponseDto {
         this.nickname = comment.getUser().getNickname();
         this.createdAt = comment.getCreatedAt();
         this.modifiedAt = comment.getModifiedAt();
+
 
 
     }

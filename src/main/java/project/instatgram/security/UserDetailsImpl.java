@@ -1,4 +1,4 @@
-package project.instatgram.security;//package com.example.jwt_prac.security;
+package project.instatgram.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,6 +23,7 @@ public class UserDetailsImpl implements UserDetails {
 
     public User user() {
         return user;
+      
     }
 
     @Override

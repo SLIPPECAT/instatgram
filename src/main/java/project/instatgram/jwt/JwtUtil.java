@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import project.instatgram.entity.UserRoleEnum;
+import project.instatgram.security.UserDetailsServiceImpl;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,7 @@ public class JwtUtil {
     public static final String AUTHORIZATION_KEY = "auth";
     private static final String BEARER_PREFIX = "Bearer ";
     private static final long TOKEN_TIME = 60 * 60 * 1000L;
-//    private final UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Value("${jwt.secret.key}")
     private String secretKey;
@@ -97,7 +98,6 @@ public class JwtUtil {
 //            throw new CustomException(ErrorCode.INVALID_TOKEN);
 //        }
 //    }
-}
 
     // 인증 객체 생성
     public Authentication createAuthentication(String username) {

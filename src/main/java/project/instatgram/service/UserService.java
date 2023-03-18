@@ -58,5 +58,6 @@ public class UserService {
         }
         // Jwt 토큰 발급
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
+
     }
 }

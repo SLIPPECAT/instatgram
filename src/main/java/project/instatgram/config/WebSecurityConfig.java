@@ -40,7 +40,7 @@ public class WebSecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         // h2-console 사용 및 resources 접근 허용 설정
         return (web) -> web.ignoring()
-//                .requestMatchers(PathRequest.toH2Console())
+                .requestMatchers(PathRequest.toH2Console())
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
@@ -57,8 +57,6 @@ public class WebSecurityConfig {
                 .antMatchers(HttpMethod.GET,"/api/posts/**").permitAll()
                 .antMatchers("/api/comments/**").permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .cors()
                 // JWT 인증/인가를 사용하기 위한 설정
                 // 먼저 JWT 필터 쓰겠다.
                 .and().addFilterAt(new JwtAuthFilter(jwtUtil), BasicAuthenticationFilter.class);
@@ -67,7 +65,6 @@ public class WebSecurityConfig {
 //        http.formLogin().loginPage("/api/user/login-page").permitAll();
 
         http.exceptionHandling().accessDeniedPage("/api/user/forbidden");
-
 
         return http.build();
     }
@@ -80,6 +77,7 @@ public class WebSecurityConfig {
         configuration.setAllowedMethods(Arrays.asList("HEAD","POST","GET","DELETE","PUT"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
+        configuration.addExposedHeader(jwtUtil.AUTHORIZATION_HEADER);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

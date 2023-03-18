@@ -20,11 +20,13 @@ public class PostController {
     private final PostService postService;
 
     // 게시글 등록(입력)
+    @CrossOrigin
     @PostMapping("/posts")
     public PostResponseDto createPost(@RequestBody PostRequestDto postRequestDto){
         return postService.createPost(postRequestDto);
     }
     // 게시글 조회
+    @CrossOrigin
     @GetMapping("/posts")
     public List<PostResponseDto> getPostList() {
         return postService.findAllPost();

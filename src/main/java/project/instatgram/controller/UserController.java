@@ -25,7 +25,7 @@ public class UserController {
 
         StatusResponseDto statusResponseDto = new StatusResponseDto();
         statusResponseDto.setStatus(SuccessCode.SIGNUP_SUCCESS.getStatus());
-        statusResponseDto.setMsg(SuccessCode.LOGIN_SUCCESS.getMsg());
+        statusResponseDto.setMsg(SuccessCode.SIGNUP_SUCCESS.getMsg());
 
         return new ResponseEntity<>(statusResponseDto, HttpStatus.OK);
     }

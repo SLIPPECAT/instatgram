@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 
     @CrossOrigin
-    @GetMapping("/")
+    @GetMapping("/hello")
     public ModelAndView home() {
         return new ModelAndView("index");
     }

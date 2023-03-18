@@ -47,7 +47,7 @@ public class UserService {
     }
 
     @Transactional
-    public void login(LoginRequestDto requestDto, HttpServletResponse response){
+    public ResponseEntity login(LoginRequestDto requestDto, HttpServletResponse response){
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
         User user = userRepository.findByUsername(username)
@@ -56,8 +56,9 @@ public class UserService {
         if(!passwordEncoder.matches(password, user.getPassword())){
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
+        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "댓글 삭제 성공!");
         // Jwt 토큰 발급
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
-
+        return ResponseEntity.status(HttpStatus.OK).body(securityExceptionDto);
     }
 }

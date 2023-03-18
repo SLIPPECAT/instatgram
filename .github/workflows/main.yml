@@ -1,4 +1,4 @@
-name: coinTalk chatRoom server CI/CD
+name: instagram
 
 on:
   push:

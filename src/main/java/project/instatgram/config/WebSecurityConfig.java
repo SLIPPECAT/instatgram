@@ -14,14 +14,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import project.instatgram.jwt.JwtAuthFilter;
 import project.instatgram.jwt.JwtUtil;
+
+import java.util.Arrays;
 
 
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity // 스프링 Security 지원을 가능하게 함
-@EnableGlobalMethodSecurity(securedEnabled = true) // @Secured 어노테이션 활성화
+//@EnableGlobalMethodSecurity(securedEnabled = true) // @Secured 어노테이션 활성화
 public class WebSecurityConfig {
 
     private final JwtUtil jwtUtil;
@@ -35,7 +40,6 @@ public class WebSecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         // h2-console 사용 및 resources 접근 허용 설정
         return (web) -> web.ignoring()
-                .requestMatchers(PathRequest.toH2Console())
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
@@ -46,11 +50,14 @@ public class WebSecurityConfig {
         // 기본 설정인 Session 방식은 사용하지 않고 JWT 방식을 사용하기 위한 설정
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.authorizeRequests().antMatchers("/api/user/**").permitAll()
-                .antMatchers("/user/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/api/boards/**").permitAll()
+        http.authorizeRequests()
+                .antMatchers("/**").permitAll()
+                .antMatchers("/api/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/posts/**").permitAll()
                 .antMatchers("/api/comments/**").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                .cors()
                 // JWT 인증/인가를 사용하기 위한 설정
                 // 먼저 JWT 필터 쓰겠다.
                 .and().addFilterAt(new JwtAuthFilter(jwtUtil), BasicAuthenticationFilter.class);
@@ -60,6 +67,22 @@ public class WebSecurityConfig {
 
         http.exceptionHandling().accessDeniedPage("/api/user/forbidden");
 
+
         return http.build();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("HEAD","POST","GET","DELETE","PUT"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+        configuration.addExposedHeader(jwtUtil.AUTHORIZATION_HEADER);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

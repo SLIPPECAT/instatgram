@@ -8,7 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
+import project.instatgram.dto.SecurityExceptionDto;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -40,6 +43,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         filterChain.doFilter(request,response);
     }
 
+//    @Override
+//    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+//                                    FilterChain filterChain) throws ServletException, IOException{
+//        CorsConfiguration corsConfiguration = this.configSource.getCorseConfiguration(request);
+//        boolean isValid = this.processor.processoRequest(corsConfiguration, request, response);
+//        if(!isValid || CoursUtils.isPreFlightRequest(request)){
+//            return;
+//        }
+//        filterChain.doFilter(request, response);
+//    }
+
     public void setAuthentication(String username) {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         Authentication authentication = jwtUtil.createAuthentication(username);
@@ -63,4 +77,5 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         return request.getRequestURI().equals("/api/post/");  // 생기는 의문 이거 POST메서드도 풀릴 거 같음
     }
+
 }

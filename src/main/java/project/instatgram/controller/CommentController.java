@@ -16,19 +16,20 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/api/comment/postId")
+    @CrossOrigin
+    @PostMapping("/api/comment/{postId}")
     public CommentResponseDto createComment
             (@PathVariable Long postId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return commentService.createComment(postId, commentRequestDto, userDetails.user());
     }
-
-    @PatchMapping("/api/comment/commentId")
+    @CrossOrigin
+    @PatchMapping("/api/comment/{commentId}")
     public ResponseEntity<?> updateComment
             (@PathVariable Long commentId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return commentService.updateComment(commentId,commentRequestDto,userDetails.user());
     }
-
-    @DeleteMapping("api/comment/commentId")
+    @CrossOrigin
+    @DeleteMapping("api/comment/{commentId}")
     public ResponseEntity<?> deleteComment
             (@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return commentService.delete(commentId, userDetails.user());

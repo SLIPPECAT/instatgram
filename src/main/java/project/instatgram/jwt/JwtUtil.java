@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import project.instatgram.entity.UserRoleEnum;
+import project.instatgram.security.UserDetailsServiceImpl;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,7 @@ public class JwtUtil {
     public static final String AUTHORIZATION_KEY = "auth";
     private static final String BEARER_PREFIX = "Bearer ";
     private static final long TOKEN_TIME = 60 * 60 * 1000L;
-//    private final UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Value("${jwt.secret.key}")
     private String secretKey;
@@ -84,20 +85,6 @@ public class JwtUtil {
     public Claims getUserInfoFromToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
-
-
-//    public AuthenticatedUser validateAndGetInfo(String token) {
-//        if (this.validateToken(token)) {
-//            Claims claims = this.getUserInfoFromToken(token);
-//            String username = claims.getSubject();
-//            UserRoleEnum role = UserRoleEnum.valueOf(claims.get("auth").toString());  // "USER", "ADMIN"  // String을 갖고 Enum객체 만들기
-//            return new AuthenticatedUser(role, username);
-//        } else {
-//            // 이 부분에서 문제가 되고 있다.
-//            throw new CustomException(ErrorCode.INVALID_TOKEN);
-//        }
-//    }
-}
 
     // 인증 객체 생성
     public Authentication createAuthentication(String username) {

@@ -43,16 +43,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         filterChain.doFilter(request,response);
     }
 
-//    @Override
-//    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-//                                    FilterChain filterChain) throws ServletException, IOException{
-//        CorsConfiguration corsConfiguration = this.configSource.getCorseConfiguration(request);
-//        boolean isValid = this.processor.processoRequest(corsConfiguration, request, response);
-//        if(!isValid || CoursUtils.isPreFlightRequest(request)){
-//            return;
-//        }
-//        filterChain.doFilter(request, response);
-//    }
 
     public void setAuthentication(String username) {
         SecurityContext context = SecurityContextHolder.createEmptyContext();

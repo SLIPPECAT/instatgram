@@ -32,8 +32,8 @@ public class UserController {
 
     @CrossOrigin
     @PostMapping("/login")
-    public ResponseEntity<> login(@RequestBody LoginRequestDto requestDto, HttpServletResponse responseDto){
+    public ResponseEntity<?> login(@RequestBody LoginRequestDto requestDto, HttpServletResponse responseDto){
         
-        return userService.login(loginRequestDto, response);
+        return userService.login(requestDto, responseDto);
     }
 }

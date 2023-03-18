@@ -1,6 +1,8 @@
 package project.instatgram.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +12,7 @@ import project.instatgram.jwt.JwtUtil;
 import project.instatgram.repository.UserRepository;
 import project.instatgram.requestdto.LoginRequestDto;
 import project.instatgram.requestdto.SignupRequestDto;
+import project.instatgram.responsedto.StatusResponseDto;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
@@ -59,6 +62,6 @@ public class UserService {
         StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "댓글 삭제 성공!");
         // Jwt 토큰 발급
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
-        return ResponseEntity.status(HttpStatus.OK).body(securityExceptionDto);
+        return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
     }
 }

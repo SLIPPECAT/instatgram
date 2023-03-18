@@ -72,10 +72,7 @@ public class PostService {
         return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
     }
     //
-    private Post getpost(Long id) {
-        return postRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("추후에 커스텀!")
-        );
-    }
+
+
 }
 

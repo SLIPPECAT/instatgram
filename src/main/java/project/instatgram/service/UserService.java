@@ -54,7 +54,7 @@ public class UserService {
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
         User user = userRepository.findByUsername(username)
-                .orElseThrow(()->new IllegalArgumentException("사용자가 존재하지 않습니다."));
+                .orElseThrow(()->new IllegalArgumentException("자바의정석"));
         // 저장된 암호와 입력왼 암호 비교
         if(!passwordEncoder.matches(password, user.getPassword())){
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");

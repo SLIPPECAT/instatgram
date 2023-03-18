@@ -58,8 +58,6 @@ public class WebSecurityConfig {
                 .anyRequest().authenticated()
                 .and()
                 .cors()
-                // JWT 인증/인가를 사용하기 위한 설정
-                // 먼저 JWT 필터 쓰겠다.
                 .and().addFilterAt(new JwtAuthFilter(jwtUtil), BasicAuthenticationFilter.class);
 
         // 폼 로그인 방식을 하지 않고 있음.
@@ -69,6 +67,7 @@ public class WebSecurityConfig {
 
 
         return http.build();
+
     }
 
     @Bean
@@ -79,7 +78,11 @@ public class WebSecurityConfig {
         configuration.setAllowedMethods(Arrays.asList("HEAD","POST","GET","DELETE","PUT"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
-        configuration.addExposedHeader(jwtUtil.AUTHORIZATION_HEADER);
+
+//        configuration.addExposedHeader("Authorization");
+//        configuration.addExposedHeader(jwtUtil.AUTHORIZATION_HEADER);
+
+
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

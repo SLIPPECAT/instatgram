@@ -11,11 +11,10 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({IllegalArgumentException.class})
     protected ResponseEntity<Object> illegalArgumentException(IllegalArgumentException e){
-
         StatusResponseDto statusResponseDto = new StatusResponseDto();
         statusResponseDto.setStatus(HttpStatus.BAD_REQUEST.value());
         statusResponseDto.setMsg(e.getMessage());
-        return new ResponseEntity<>(statusResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(statusResponseDto, HttpStatus.BAD_REQUEST);
     }
 
 //    @ExceptionHandler({JwtUnvalidException.class})

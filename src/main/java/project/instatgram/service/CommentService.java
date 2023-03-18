@@ -55,13 +55,6 @@ public class CommentService {
         return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
     }
 
-
-
-
-
-
-
-
     private Post getPost(Long postId) {
         return postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("나중에 커스텀에러코드로 변경")
@@ -72,7 +65,4 @@ public class CommentService {
                 () -> new IllegalArgumentException("나중에 커스텀에러코드로 변경")
         );
     }
-
-
-
 }

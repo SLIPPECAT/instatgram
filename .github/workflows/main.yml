@@ -1,5 +1,4 @@
-name: instagram
-
+name: CI
 on:
   push:
     branches: [ master ]

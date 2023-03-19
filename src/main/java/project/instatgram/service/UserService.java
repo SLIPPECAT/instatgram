@@ -54,7 +54,7 @@ public class UserService {
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
         User user = userRepository.findByUsername(username)
-                .orElseThrow(()->new IllegalArgumentException("자바의정석"));
+                .orElseThrow(()->new IllegalArgumentException("사용자가 자바의 정석"));
         // 저장된 암호와 입력왼 암호 비교
         if(!passwordEncoder.matches(password, user.getPassword())){
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
@@ -62,7 +62,7 @@ public class UserService {
 //        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "로그인 완료");
 //        return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
         // Jwt 토큰 발급
-//        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
         String token = jwtUtil.createToken(user.getUsername(), user.getRole());
         System.out.println(token);
         return token;

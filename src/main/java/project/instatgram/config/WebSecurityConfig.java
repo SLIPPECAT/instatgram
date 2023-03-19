@@ -78,9 +78,8 @@ public class WebSecurityConfig {
         configuration.setAllowedMethods(Arrays.asList("HEAD","POST","GET","DELETE","PUT"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
-
-//        configuration.addExposedHeader("Authorization");
-//        configuration.addExposedHeader(jwtUtil.AUTHORIZATION_HEADER);
+        configuration.addExposedHeader("Authorization");
+        configuration.addExposedHeader(jwtUtil.AUTHORIZATION_HEADER);
 
 
 

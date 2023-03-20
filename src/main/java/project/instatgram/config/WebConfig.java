@@ -15,5 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("*")
                 .allowCredentials(false)
                 .maxAge(3000);
+
+        //commit 됐나?
     }
 }

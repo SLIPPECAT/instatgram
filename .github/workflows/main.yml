@@ -67,8 +67,8 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: 
         aws deploy create-deployment
-        --application-name ryujun
-        --deployment-group-name ryujun-group
+        --application-name instagram
+        --deployment-group-name instagram-group
         --file-exists-behavior OVERWRITE
         --s3-location bucket=ryujun-deploy,bundleType=zip,key=ryujun.zip
         --region ap-northeast-2

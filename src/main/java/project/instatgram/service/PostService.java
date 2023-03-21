@@ -44,18 +44,18 @@ public class PostService {
     }
 
     // 삭제
-    public ResponseEntity<Object> delete(Long id, String userId) {
+    public ResponseEntity<Object> delete(Long id, User user) {
         Post post = postRepository.findById(id).orElseThrow(
                 ()-> new IllegalArgumentException("게시글이 존재하지 않습니다."));
-
         // 이거 쓴 사람이랑 로그인 된 사람일치
-        if(!userId.equals(post.getUser().getUsername())){
+        if(!user.getId().equals(post.getUser().getId())){
             throw new IllegalArgumentException("사용자가 일치하지 않습니다.");
         }
         postRepository.delete(post);
         StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "게시물 삭제 성공!");
         return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
     }
+
     // 수정
     @Transactional
     public ResponseEntity<Object> updatePost(Long id, PostRequestDto postRequestDto, String userId) {

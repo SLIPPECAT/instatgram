@@ -40,7 +40,7 @@ public class PostController {
     @PatchMapping("/posts/{postId}")
     public ResponseEntity<?> updatePost(@PathVariable Long postId, @RequestBody PostRequestDto postRequestDto,
                                         @AuthenticationPrincipal UserDetailsImpl userDetails){
-        String userId = userDetails.getUsername();
-        return postService.updatePost(postId, postRequestDto, userId);
+
+        return postService.updatePost(postId, postRequestDto, userDetails.user());
     }
 }

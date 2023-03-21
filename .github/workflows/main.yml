@@ -13,8 +13,7 @@ env:
   AWS_DEFAULT_REGION: ap-northeast-2
   S3_BUCKET_NAME: instagrams
   CODE_DEPLOY_APPLICATION_NAME: instagrams
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: instagrams-group
-
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: instagrams
 permissions:
   contents: read
 

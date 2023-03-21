@@ -18,7 +18,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @CrossOrigin
     @PostMapping("/signup")
     public ResponseEntity<Object> signup(@RequestBody SignupRequestDto requestDto){
         userService.signup(requestDto);
@@ -30,7 +29,6 @@ public class UserController {
         return new ResponseEntity<>(statusResponseDto, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody LoginRequestDto requestDto, HttpServletResponse responseDto){
         userService.login(requestDto, responseDto);

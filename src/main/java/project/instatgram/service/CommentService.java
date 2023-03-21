@@ -38,7 +38,7 @@ public class CommentService {
     public ResponseEntity<?> updateComment(Long commentId, CommentRequestDto commentRequestDto, User user) {
         Comment comment = getComment(commentId);
         if (!(comment.getUser().getId().equals(user.getId()) || user.getRole().equals(UserRoleEnum.ADMIN))) {
-            throw new IllegalArgumentException("나중에 커스텀에러코드로 변경");
+            throw new IllegalArgumentException("댓글을 수정할 수 없습니다.");
         }
         comment.updateComment(commentRequestDto);
         StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "댓글 수정 성공!");
@@ -48,7 +48,7 @@ public class CommentService {
     public ResponseEntity<?> delete(Long commentId, User user) {
         Comment comment = getComment(commentId);
         if (!(comment.getUser().getId().equals(user.getId()) || user.getRole().equals(UserRoleEnum.ADMIN))) {
-            throw new IllegalArgumentException("나중에 커스텀에러코드로 변경");
+            throw new IllegalArgumentException("댓글 삭제 완료");
         }
         commentRepository.deleteById(commentId);
         StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "댓글 삭제 성공!");
@@ -57,12 +57,13 @@ public class CommentService {
 
     private Post getPost(Long postId) {
         return postRepository.findById(postId).orElseThrow(
-                () -> new IllegalArgumentException("나중에 커스텀에러코드로 변경")
+                () -> new IllegalArgumentException("게시글을 찾을 수 없습니다.")
         );
     }
+
     private Comment getComment(Long commentId) {
         return commentRepository.findById(commentId).orElseThrow(
-                () -> new IllegalArgumentException("나중에 커스텀에러코드로 변경")
+                () -> new IllegalArgumentException("댓글을 찾을 수 없습니다.")
         );
     }
 }

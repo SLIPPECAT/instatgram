@@ -32,7 +32,6 @@ public class PostService {
         postRepository.save(post);
         PostResponseDto postResponseDto = new PostResponseDto(post);
         return postResponseDto;
-
     }
     // 게시글 전체 조회
     public List<PostResponseDto> findAllPost() {
@@ -50,10 +49,10 @@ public class PostService {
                 ()-> new IllegalArgumentException("게시글이 존재하지 않습니다."));
         // 이거 쓴 사람이랑 로그인 된 사람일치
         if(!user.getId().equals(post.getUser().getId())){
-            throw new IllegalArgumentException("사용자가 일치하지 않습니다.");
+            throw new IllegalArgumentException("작성자가 일치하지 않습니다.");
         }
         postRepository.deleteById(id);
-        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "게시물 삭제 성공!");
+        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "게시물 삭제에 성공했습니다.");
         return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
     }
 
@@ -65,15 +64,12 @@ public class PostService {
 
         // 이거 쓴 사람이랑 로그인 된 사람일치
         if(!userId.equals(post.getUser().getUsername())){
-            throw new IllegalArgumentException("사용자가 일치하지 않습니다.");
+            throw new IllegalArgumentException("작성자가 일치하지 않습니다.");
         }
 
         post.updatePost(postRequestDto);
-        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "게시물 수정 성공!");
+        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "게시물 수정에 성공했습니다.");
         return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
     }
-    //
-
-
 }
 

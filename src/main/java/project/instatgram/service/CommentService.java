@@ -38,20 +38,20 @@ public class CommentService {
     public ResponseEntity<?> updateComment(Long commentId, CommentRequestDto commentRequestDto, User user) {
         Comment comment = getComment(commentId);
         if (!(comment.getUser().getId().equals(user.getId()) || user.getRole().equals(UserRoleEnum.ADMIN))) {
-            throw new IllegalArgumentException("댓글을 수정할 수 없습니다.");
+            throw new IllegalArgumentException("작성자가 일치하지 않습니다.");
         }
         comment.updateComment(commentRequestDto);
-        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "댓글 수정 성공!");
+        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "댓글 수정에 성공했습니다.");
         return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
     }
 
     public ResponseEntity<?> delete(Long commentId, User user) {
         Comment comment = getComment(commentId);
         if (!(comment.getUser().getId().equals(user.getId()) || user.getRole().equals(UserRoleEnum.ADMIN))) {
-            throw new IllegalArgumentException("댓글 삭제 완료");
+            throw new IllegalArgumentException("댓글 삭제를 완료했습니다.");
         }
         commentRepository.deleteById(commentId);
-        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "댓글 삭제 성공!");
+        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "댓글 삭제를 완료했습니다.");
         return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
     }
 

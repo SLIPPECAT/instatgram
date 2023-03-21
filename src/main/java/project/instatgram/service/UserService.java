@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import project.instatgram.entity.User;
 import project.instatgram.entity.UserRoleEnum;
 import project.instatgram.jwt.JwtUtil;
@@ -15,8 +16,10 @@ import project.instatgram.requestdto.SignupRequestDto;
 import project.instatgram.responsedto.StatusResponseDto;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Optional;
 
+@Validated
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -27,7 +30,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void signup(SignupRequestDto requestDto){
+    public void signup(@Valid SignupRequestDto requestDto){
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
         // 비밀번호 암호화
@@ -35,8 +38,9 @@ public class UserService {
         String nickname = requestDto.getNickname();
         // 사용자 확인
         Optional<User> found = userRepository.findByUsername(requestDto.getUsername());
-        if(found.isPresent()){ throw new IllegalArgumentException("ANYWAY THEN");}
+        if(found.isPresent()){ throw new IllegalArgumentException("아이디가 이미 존재합니다.");}
         UserRoleEnum role = UserRoleEnum.USER;
+
         // 관리자 여부 확인
         if(requestDto.isAdmin()){
             if(!requestDto.getAdminToken().equals(ADMIN_TOKEN)){
@@ -54,10 +58,10 @@ public class UserService {
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
         User user = userRepository.findByUsername(username)
-                .orElseThrow(()->new IllegalArgumentException("사용자가 존재하지 않습니다."));
+                .orElseThrow(()->new IllegalArgumentException("아이디가 일치하지 않습니다."));
         // 저장된 암호와 입력왼 암호 비교
         if(!passwordEncoder.matches(password, user.getPassword())){
-            throw new IllegalArgumentException("고쳐졌을려나.");
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
         // Jwt 토큰 발급
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));

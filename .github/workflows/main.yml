@@ -10,24 +10,19 @@ on:
 env:
   S3_BUCKET_NAME: instagrams
 
-permissions:
-  contents: read
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v2
       with:
       # 자신이 사용하는 자바 버전에 맞춰주자
         java-version: '17'
         distribution: 'temurin'
-        
-    - uses : actions/checkout@v3
+    
     #1
     # 해당 부분은 상당히 중요함 (글에서 부가설명)
     # application.properties는 외부에 노출되면 안되므로 Actions가 빌드될때마다 해당 Repository의 Secret 설정을

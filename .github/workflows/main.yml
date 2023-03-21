@@ -72,7 +72,7 @@ jobs:
       run:
         aws deploy create-deployment
         --application-name instagrams
-        --deployment-group-name instagrams-group
+        --deployment-group-name instagrams
         --file-exists-behavior OVERWRITE
         --s3-location bucket=instagrams,bundleType=zip,key=instagrams.zip
         --region ap-northeast-2

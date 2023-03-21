@@ -23,7 +23,6 @@ public class UserDetailsImpl implements UserDetails {
 
     public User user() {
         return user;
-      
     }
 
     @Override

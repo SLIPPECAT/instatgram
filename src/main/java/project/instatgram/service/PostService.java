@@ -3,6 +3,7 @@ package project.instatgram.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +27,8 @@ public class PostService {
     private final PostRepository postRepository;
     // 등록
     @Transactional
-    public PostResponseDto createPost(PostRequestDto postRequestDto) {
-        Post post = new Post(postRequestDto);
+    public PostResponseDto createPost(PostRequestDto postRequestDto, User user) {
+        Post post = new Post(postRequestDto, user);
         postRepository.save(post);
         PostResponseDto postResponseDto = new PostResponseDto(post);
         return postResponseDto;

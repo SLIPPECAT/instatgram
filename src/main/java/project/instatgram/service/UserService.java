@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Optional;
 
-@Validated
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -30,7 +29,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void signup(@Valid SignupRequestDto requestDto){
+    public void signup(SignupRequestDto requestDto){
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
         // 비밀번호 암호화

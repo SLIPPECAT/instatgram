@@ -7,6 +7,9 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  S3_BUCKET_NAME: instagrams
+
 permissions:
   contents: read
 
@@ -52,20 +55,16 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-      # 깃허브 Secret에 넣어둔 Access key
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      # 깃허브 Secret에 넣어둔 Secret key
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      # 깃허브 Secret에 넣어둔 Region
         aws-region: ${{ secrets.AWS_REGION }}
 
 #3
 # 만들어 놓은 S3에 해당 zip 파일 저장
     - name: Upload to S3
-      run: aws s3 cp --region ${{ secrets.AWS_REGION }} ./instagrams.zip s3://instagrams/
-    
-#4
-# AWS CodeDeploy에 배포
+      run: aws s3 cp --region ap-northeast-2 ./instagrams.zip s3://$S3_BUCKET_NAME/
+
+    # Deploy
     - name: Deploy
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -75,5 +74,5 @@ jobs:
         --application-name instagrams
         --deployment-group-name instagrams-group
         --file-exists-behavior OVERWRITE
-        --s3-location bucket=instagrams,bundleType=zip,key=instagrams.zip \
-        --region ${{ secrets.AWS_REGION }}
+        --s3-location bucket=instagrams,bundleType=zip,key=instagrams.zip
+        --region ap-northeast-2

@@ -6,6 +6,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import project.instatgram.dto.PostRequestDto;
 import project.instatgram.dto.PostResponseDto;
+import project.instatgram.entity.User;
 import project.instatgram.security.UserDetailsImpl;
 import project.instatgram.service.PostService;
 
@@ -21,7 +22,7 @@ public class PostController {
 
     // 게시글 등록(입력)
     @PostMapping("/posts")
-    public PostResponseDto createPost(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public PostResponseDto createPost(@RequestBody PostRequestDto postRequestDto,@AuthenticationPrincipal UserDetailsImpl userDetails){
         return postService.createPost(postRequestDto, userDetails.user());
     }
     // 게시글 조회

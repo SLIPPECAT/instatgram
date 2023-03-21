@@ -3,20 +3,15 @@ package project.instatgram.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 import project.instatgram.dto.PostRequestDto;
 import project.instatgram.dto.PostResponseDto;
 import project.instatgram.entity.Post;
 import project.instatgram.entity.User;
 import project.instatgram.repository.PostRepository;
-import project.instatgram.repository.UserRepository;
 import project.instatgram.responsedto.StatusResponseDto;
-import project.instatgram.security.UserDetailsImpl;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 

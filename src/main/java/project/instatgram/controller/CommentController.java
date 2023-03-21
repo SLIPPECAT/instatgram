@@ -11,24 +11,21 @@ import project.instatgram.service.CommentService;
 
 @RestController
 @RequiredArgsConstructor
-
+@CrossOrigin
 public class CommentController {
 
     private final CommentService commentService;
 
-    @CrossOrigin
     @PostMapping("/api/comment/{postId}")
     public CommentResponseDto createComment
             (@PathVariable Long postId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return commentService.createComment(postId, commentRequestDto, userDetails.user());
     }
-    @CrossOrigin
     @PatchMapping("/api/comment/{commentId}")
     public ResponseEntity<?> updateComment
             (@PathVariable Long commentId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return commentService.updateComment(commentId,commentRequestDto,userDetails.user());
     }
-    @CrossOrigin
     @DeleteMapping("api/comment/{commentId}")
     public ResponseEntity<?> deleteComment
             (@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails){

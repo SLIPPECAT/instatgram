@@ -16,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import project.instatgram.jwt.JwtAuthFilter;
 import project.instatgram.jwt.JwtUtil;
@@ -55,6 +56,7 @@ public class WebSecurityConfig {
                 .antMatchers("/api/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/posts/**").permitAll()
                 .antMatchers("/api/comments/**").permitAll()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .cors()
@@ -67,20 +69,17 @@ public class WebSecurityConfig {
 
 
         return http.build();
-
     }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-
         configuration.setAllowedOriginPatterns(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("HEAD","POST","GET","DELETE","PUT"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
         configuration.addExposedHeader("Authorization");
         configuration.addExposedHeader(jwtUtil.AUTHORIZATION_HEADER);
-
 
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

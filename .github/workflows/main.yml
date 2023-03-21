@@ -62,7 +62,7 @@ jobs:
 #3
 # 만들어 놓은 S3에 해당 zip 파일 저장
     - name: Upload to S3
-      run: aws s3 cp --region ${{ secrets.AWS_REGION }} ./instagrams.zip s3://instagrams/instagrams.zip
+      run: aws s3 cp --region ${{ secrets.AWS_REGION }} ./instagrams.zip s3://instagrams/
     
 #4
 # AWS CodeDeploy에 배포

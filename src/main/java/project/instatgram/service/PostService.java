@@ -51,7 +51,7 @@ public class PostService {
         if(!user.getId().equals(post.getUser().getId())){
             throw new IllegalArgumentException("사용자가 일치하지 않습니다.");
         }
-        postRepository.delete(post);
+        postRepository.deleteById(id);
         StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "게시물 삭제 성공!");
         return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
     }

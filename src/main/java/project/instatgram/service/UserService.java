@@ -35,7 +35,7 @@ public class UserService {
         String nickname = requestDto.getNickname();
         // 사용자 확인
         Optional<User> found = userRepository.findByUsername(requestDto.getUsername());
-        if(found.isPresent()){ throw new IllegalArgumentException("same user exist");}
+        if(found.isPresent()){ throw new IllegalArgumentException("same user exist ANYWAY");}
         UserRoleEnum role = UserRoleEnum.USER;
         // 관리자 여부 확인
         if(requestDto.isAdmin()){

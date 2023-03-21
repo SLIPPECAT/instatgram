@@ -46,6 +46,8 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        http.httpBasic().disable();
+        http.formLogin().disable();
 
         // 기본 설정인 Session 방식은 사용하지 않고 JWT 방식을 사용하기 위한 설정
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -56,10 +58,9 @@ public class WebSecurityConfig {
                 .antMatchers(HttpMethod.GET,"/api/posts/**").permitAll()
                 .antMatchers("/api/comments/**").permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .cors()
-                .and().addFilterAt(new JwtAuthFilter(jwtUtil), BasicAuthenticationFilter.class);
+                .anyRequest().authenticated();
+        http.cors();
+        http.addFilterAt(new JwtAuthFilter(jwtUtil), BasicAuthenticationFilter.class);
 
         // 폼 로그인 방식을 하지 않고 있음.
 //        http.formLogin().loginPage("/api/user/login-page").permitAll();

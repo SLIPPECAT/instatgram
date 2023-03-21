@@ -22,7 +22,8 @@ public class PostController {
 
     // 게시글 등록(입력)
     @PostMapping("/posts")
-    public PostResponseDto createPost(@RequestBody PostRequestDto postRequestDto,@AuthenticationPrincipal UserDetailsImpl userDetails){
+    public PostResponseDto createPost(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        System.out.println(userDetails.getUsername());
         return postService.createPost(postRequestDto, userDetails.user());
     }
     // 게시글 조회

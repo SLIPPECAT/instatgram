@@ -53,12 +53,12 @@ public class PostService {
 
     // 수정
     @Transactional
-    public ResponseEntity<Object> updatePost(Long id, PostRequestDto postRequestDto, String userId) {
+    public ResponseEntity<Object> updatePost(Long id, PostRequestDto postRequestDto, User user) {
         Post post = postRepository.findById(id).orElseThrow(
                 ()-> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 
         // 이거 쓴 사람이랑 로그인 된 사람일치
-        if(!userId.equals(post.getUser().getUsername())){
+        if(!user.getId().equals(post.getUser().getId())){
             throw new IllegalArgumentException("작성자가 일치하지 않습니다.");
         }
 

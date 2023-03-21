@@ -57,7 +57,7 @@ public class UserService {
                 .orElseThrow(()->new IllegalArgumentException("사용자가 존재하지 않습니다."));
         // 저장된 암호와 입력왼 암호 비교
         if(!passwordEncoder.matches(password, user.getPassword())){
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            throw new IllegalArgumentException("비ㅏ무라다.");
         }
         // Jwt 토큰 발급
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));

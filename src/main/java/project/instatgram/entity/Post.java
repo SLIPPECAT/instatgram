@@ -22,7 +22,7 @@ public class Post extends Timestamped{
     private String nickname;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @OneToMany(orphanRemoval = true)

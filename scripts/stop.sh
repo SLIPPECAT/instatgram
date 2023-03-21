@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 PROJECT_ROOT="/home/ubuntu/app"
-JAR_FILE="$PROJECT_ROOT/board.jar"
+JAR_FILE="$PROJECT_ROOT/instagrams.jar"
 
 DEPLOY_LOG="$PROJECT_ROOT/deploy.log"
 

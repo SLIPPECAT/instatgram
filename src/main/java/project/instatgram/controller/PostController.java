@@ -32,8 +32,7 @@ public class PostController {
     // 삭제
     @DeleteMapping("/posts/{postId}")
     public ResponseEntity<?> deletePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        String userId = userDetails.getUsername();
-        return postService.delete(postId, userId);
+        return postService.delete(postId, userDetails.user());
     }
     // 수정
     @PatchMapping("/posts/{postId}")

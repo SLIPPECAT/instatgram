@@ -1,22 +1,17 @@
 package project.instatgram.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import project.instatgram.entity.User;
 import project.instatgram.entity.UserRoleEnum;
 import project.instatgram.jwt.JwtUtil;
 import project.instatgram.repository.UserRepository;
 import project.instatgram.requestdto.LoginRequestDto;
 import project.instatgram.requestdto.SignupRequestDto;
-import project.instatgram.responsedto.StatusResponseDto;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -64,6 +59,5 @@ public class UserService {
         }
         // Jwt 토큰 발급
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
-        String token = jwtUtil.createToken(user.getUsername(), user.getRole());
     }
 }

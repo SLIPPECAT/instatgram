@@ -20,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<Object> signup(@Validated @RequestBody SignupRequestDto requestDto){
+    public ResponseEntity<Object> signup(@RequestBody SignupRequestDto requestDto){
         userService.signup(requestDto);
 
         StatusResponseDto statusResponseDto = new StatusResponseDto();

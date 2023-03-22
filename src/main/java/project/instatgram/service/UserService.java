@@ -58,6 +58,7 @@ public class UserService {
         // 저장된 암호와 입력왼 암호 비교
         if(!passwordEncoder.matches(password, user.getPassword())){
             throw new IllegalArgumentException("PWD NOT SAME");
+
         }
         StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "로그인 완료");
         // Jwt 토큰 발급

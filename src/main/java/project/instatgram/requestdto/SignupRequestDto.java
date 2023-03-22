@@ -10,9 +10,18 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 public class SignupRequestDto {
 
+
+    @NotBlank
+    @Pattern(regexp = "^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\\.[a-zA-Z0-9]+$")
     private String username;
+
+    @NotBlank
     private String password;
+
+    @NotBlank
     private String nickname;
+
+
     private boolean Admin = false;
     private String adminToken= "";
 }

@@ -54,10 +54,10 @@ public class UserService {
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
         User user = userRepository.findByUsername(username)
-                .orElseThrow(()->new IllegalArgumentException("ID NOT SAME"));
+                .orElseThrow(()->new IllegalArgumentException("사용자가 존재하지 않습니다."));
         // 저장된 암호와 입력왼 암호 비교
         if(!passwordEncoder.matches(password, user.getPassword())){
-            throw new IllegalArgumentException("PWD NOT SAME");
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
 
         }
         StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "로그인 완료");

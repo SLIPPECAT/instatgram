@@ -20,6 +20,7 @@ public class Comment extends Timestamped{
 
     @Column(nullable = false)
     private String nickname;
+
     @ManyToOne
     @JoinColumn(name = "USER_ID",nullable = false)
     private User user;

@@ -12,7 +12,6 @@ import project.instatgram.service.CommentService;
 @RestController
 @RequiredArgsConstructor
 public class CommentController {
-
     private final CommentService commentService;
 
     @PostMapping("/api/comments/{postId}")

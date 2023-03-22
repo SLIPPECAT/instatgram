@@ -13,7 +13,6 @@ import project.instatgram.service.UserService;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-@Validated
 @RequiredArgsConstructor
 @RequestMapping("/api")
 @RestController
@@ -22,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<Object> signup(@Valid @RequestBody SignupRequestDto requestDto){
+    public ResponseEntity<Object> signup(@RequestBody SignupRequestDto requestDto){
         userService.signup(requestDto);
 
         StatusResponseDto statusResponseDto = new StatusResponseDto();
@@ -33,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@Valid @RequestBody LoginRequestDto requestDto, HttpServletResponse responseDto){
+    public ResponseEntity<Object> login(@RequestBody LoginRequestDto requestDto, HttpServletResponse responseDto){
         userService.login(requestDto, responseDto);
 
         StatusResponseDto statusResponseDto = new StatusResponseDto();

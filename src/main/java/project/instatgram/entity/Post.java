@@ -26,6 +26,7 @@ public class Post extends Timestamped{
     private User user;
 
     @OneToMany(orphanRemoval = true)
+    @JoinColumn(name = "comment_id")
     private List<Comment> comments =new ArrayList<>();
 
 

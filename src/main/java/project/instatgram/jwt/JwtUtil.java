@@ -50,6 +50,7 @@ public class JwtUtil {
         return null;
     }
 
+    // 닉네임 추가
     // 토큰 생성
     public String createToken(String username, UserRoleEnum role) {
         Date date = new Date();

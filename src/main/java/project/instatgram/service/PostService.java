@@ -61,7 +61,6 @@ public class PostService {
         if(!user.getId().equals(post.getUser().getId())){
             throw new IllegalArgumentException("작성자가 일치하지 않습니다.");
         }
-
         post.updatePost(postRequestDto);
         StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "게시물 수정에 성공했습니다.");
         return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);

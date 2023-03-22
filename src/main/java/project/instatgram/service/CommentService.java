@@ -16,6 +16,9 @@ import project.instatgram.repository.CommentRepository;
 import project.instatgram.repository.PostRepository;
 import project.instatgram.responsedto.StatusResponseDto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -32,6 +35,17 @@ public class CommentService {
         commentRepository.saveAndFlush(comment);
         post.getComments().add(comment);
         return new CommentResponseDto(comment);
+    }
+
+    @Transactional
+    public List<CommentResponseDto> getComments(Long postId){
+        Post post = getPost(postId);
+        List<CommentResponseDto> commentList = new ArrayList<>();
+        for(Comment comment : post.getComments()){
+            CommentResponseDto comments = new CommentResponseDto(comment);
+            commentList.add(comments);
+        }
+        return commentList;
     }
 
     @Transactional

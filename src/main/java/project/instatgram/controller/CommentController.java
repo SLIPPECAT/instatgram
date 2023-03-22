@@ -9,6 +9,8 @@ import project.instatgram.dto.CommentResponseDto;
 import project.instatgram.security.UserDetailsImpl;
 import project.instatgram.service.CommentService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class CommentController {
@@ -19,6 +21,12 @@ public class CommentController {
             (@PathVariable Long postId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return commentService.createComment(postId, commentRequestDto, userDetails.user());
     }
+
+    @GetMapping("/api/comments/{postId}")
+    public List<CommentResponseDto> getComments(@PathVariable Long postId){
+        return commentService.getComments(postId);
+    }
+
     @PatchMapping("/api/comments/{commentId}")
     public ResponseEntity<?> updateComment
             (@PathVariable Long commentId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){

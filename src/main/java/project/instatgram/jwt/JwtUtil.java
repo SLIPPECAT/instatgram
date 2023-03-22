@@ -62,6 +62,7 @@ public class JwtUtil {
                         .setIssuedAt(date)
                         .signWith(key, signatureAlgorithm)
                         .compact();
+
     }
 
     // 토큰 검증

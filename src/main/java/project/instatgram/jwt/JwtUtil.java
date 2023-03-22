@@ -51,14 +51,13 @@ public class JwtUtil {
     }
 
     // 닉네임 추가
-    public String createToken(String username, String nickname, UserRoleEnum role) {
+    // 토큰 생성
+    public String createToken(String username, UserRoleEnum role) {
         Date date = new Date();
 
         return BEARER_PREFIX +
                 Jwts.builder()
                         .setSubject(username)
-                        // nickname
-                        .setSubject(nickname)
                         .claim(AUTHORIZATION_KEY, role)
                         .setExpiration(new Date(date.getTime() + TOKEN_TIME))
                         .setIssuedAt(date)

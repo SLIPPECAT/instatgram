@@ -39,7 +39,7 @@ public class PostResponseDto {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
-        this.nickname = post.getNickname();
+        this.nickname = post.getUser().getNickname();
         this.createAt = post.getCreatedAt();
         this.modifiedAt = post.getModifiedAt();
         for(Comment comment : post.getComments()){

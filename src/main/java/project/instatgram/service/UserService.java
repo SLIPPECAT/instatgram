@@ -1,6 +1,7 @@
 package project.instatgram.service;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,7 +57,7 @@ public class UserService {
     }
 
     @Transactional
-    public void login(LoginRequestDto requestDto, HttpServletResponse response){
+    public ResponseEntity<StatusResponseDto> login(LoginRequestDto requestDto, HttpServletResponse response){
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
         User user = userRepository.findByUsername(username)
@@ -66,10 +67,11 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
 
         }
-        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "로그인 완료");
         // Jwt 토큰 발급
-
+        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "로그인 완료");
         String token = jwtUtil.createToken(user.getUsername(), user.getNickname(), user.getRole());
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getNickname(), user.getRole()));
+
+        return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
     }
 }

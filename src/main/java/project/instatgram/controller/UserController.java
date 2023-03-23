@@ -5,7 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import project.instatgram.exception.CustomException;
 import project.instatgram.exception.ErrorCode;
 import project.instatgram.exception.SuccessCode;
@@ -15,6 +18,8 @@ import project.instatgram.responsedto.StatusResponseDto;
 import project.instatgram.service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
+
+
 @Validated
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -25,7 +30,7 @@ public class UserController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<StatusResponseDto> signup(@Validated @RequestBody SignupRequestDto requestDto, BindingResult bindingResult){
+    public ResponseEntity<StatusResponseDto> signup(@Validated @RequestBody SignupRequestDto requestDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.NOT_FOUND_SIGNUP_USER);
         }
@@ -34,7 +39,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@Validated @RequestBody LoginRequestDto requestDto, HttpServletResponse responseDto){
+    public ResponseEntity<Object> login(@Validated @RequestBody LoginRequestDto requestDto, HttpServletResponse responseDto) {
         userService.login(requestDto, responseDto);
 
         StatusResponseDto statusResponseDto = new StatusResponseDto();

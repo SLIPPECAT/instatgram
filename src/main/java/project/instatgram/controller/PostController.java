@@ -6,6 +6,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import project.instatgram.dto.PostRequestDto;
 import project.instatgram.dto.PostResponseDto;
+import project.instatgram.entity.User;
 import project.instatgram.security.UserDetailsImpl;
 import project.instatgram.service.PostService;
 
@@ -20,13 +21,12 @@ public class PostController {
     private final PostService postService;
 
     // 게시글 등록(입력)
-    @CrossOrigin
     @PostMapping("/posts")
-    public PostResponseDto createPost(@RequestBody PostRequestDto postRequestDto){
-        return postService.createPost(postRequestDto);
+    public PostResponseDto createPost(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        System.out.println(userDetails.getUsername());
+        return postService.createPost(postRequestDto, userDetails.user());
     }
     // 게시글 조회
-    @CrossOrigin
     @GetMapping("/posts")
     public List<PostResponseDto> getPostList() {
         return postService.findAllPost();
@@ -34,14 +34,13 @@ public class PostController {
     // 삭제
     @DeleteMapping("/posts/{postId}")
     public ResponseEntity<?> deletePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        String userId = userDetails.getUsername();
-        return postService.delete(postId, userId);
+        return postService.delete(postId, userDetails.user());
     }
     // 수정
     @PatchMapping("/posts/{postId}")
     public ResponseEntity<?> updatePost(@PathVariable Long postId, @RequestBody PostRequestDto postRequestDto,
                                         @AuthenticationPrincipal UserDetailsImpl userDetails){
-        String userId = userDetails.getUsername();
-        return postService.updatePost(postId, postRequestDto, userId);
+
+        return postService.updatePost(postId, postRequestDto, userDetails.user());
     }
 }

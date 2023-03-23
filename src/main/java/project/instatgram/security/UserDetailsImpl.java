@@ -13,17 +13,16 @@ public class UserDetailsImpl implements UserDetails {
 
     private final User user;
     private final String username;
-    private final String password;
 
-    public UserDetailsImpl(User user, String username, String password) {
+
+    public UserDetailsImpl(User user, String username) {
         this.user = user;
         this.username = username;
-        this.password = password;
+
     }
 
     public User user() {
         return user;
-      
     }
 
     @Override
@@ -46,7 +45,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.password;
+        return null;
     }
 
     @Override

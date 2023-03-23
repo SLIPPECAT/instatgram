@@ -14,7 +14,7 @@ import java.util.List;
 public class Post extends Timestamped{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String title;
@@ -22,24 +22,23 @@ public class Post extends Timestamped{
     private String nickname;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "comment_id")
+    @JoinColumn(name = "post_id")
     private List<Comment> comments =new ArrayList<>();
 
 
-    public Post(PostRequestDto postRequestDto) {
+    public Post(PostRequestDto postRequestDto, User user) {
         this.title = postRequestDto.getTitle();
         this.content = postRequestDto.getContent();
-        this.nickname = postRequestDto.getNickname();
+        this.nickname = user.getNickname();
+        this.user = user;
     }
 
     public void updatePost(PostRequestDto postRequestDto) {
         this.title = postRequestDto.getTitle();
         this.content = postRequestDto.getContent();
-        this.nickname = postRequestDto.getNickname();
-        //
     }
 }

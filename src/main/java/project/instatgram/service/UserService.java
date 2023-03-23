@@ -35,7 +35,7 @@ public class UserService {
         String nickname = requestDto.getNickname();
         // 사용자 확인
         Optional<User> found = userRepository.findByUsername(requestDto.getUsername());
-        if(found.isPresent()){ throw new IllegalArgumentException("등록된 사용자가 존재합니다.");}
+        if(found.isPresent()){ throw new IllegalArgumentException("아이디가 이미 존재합니다.");}
         UserRoleEnum role = UserRoleEnum.USER;
         // 관리자 여부 확인
         if(requestDto.isAdmin()){
@@ -61,9 +61,12 @@ public class UserService {
         // 저장된 암호와 입력왼 암호 비교
         if(!passwordEncoder.matches(password, user.getPassword())){
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+
         }
+        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "로그인 완료");
         // Jwt 토큰 발급
-        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
-        String token = jwtUtil.createToken(user.getUsername(), user.getRole());
+
+        String token = jwtUtil.createToken(user.getUsername(), user.getNickname(), user.getRole());
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getNickname(), user.getRole()));
     }
 }

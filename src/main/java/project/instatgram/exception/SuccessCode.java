@@ -11,6 +11,7 @@ public enum SuccessCode {
     SIGNUP_SUCCESS(200, "회원가입에 성공하였습니다."),
     LOGIN_SUCCESS(200, "로그인에 성공하였습니다.");
 
+
     private final int status;
     private final String msg;
 }

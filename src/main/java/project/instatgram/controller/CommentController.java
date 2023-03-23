@@ -9,27 +9,30 @@ import project.instatgram.dto.CommentResponseDto;
 import project.instatgram.security.UserDetailsImpl;
 import project.instatgram.service.CommentService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
-
 public class CommentController {
-
     private final CommentService commentService;
 
-    @CrossOrigin
-    @PostMapping("/api/comment/{postId}")
+    @PostMapping("/api/comments/{postId}")
     public CommentResponseDto createComment
             (@PathVariable Long postId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return commentService.createComment(postId, commentRequestDto, userDetails.user());
     }
-    @CrossOrigin
-    @PatchMapping("/api/comment/{commentId}")
+
+    @GetMapping("/api/comments/{postId}")
+    public List<CommentResponseDto> getComments(@PathVariable Long postId){
+        return commentService.getComments(postId);
+    }
+
+    @PatchMapping("/api/comments/{commentId}")
     public ResponseEntity<?> updateComment
             (@PathVariable Long commentId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return commentService.updateComment(commentId,commentRequestDto,userDetails.user());
     }
-    @CrossOrigin
-    @DeleteMapping("api/comment/{commentId}")
+    @DeleteMapping("/api/comments/{commentId}")
     public ResponseEntity<?> deleteComment
             (@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return commentService.delete(commentId, userDetails.user());

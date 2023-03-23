@@ -2,16 +2,16 @@ package project.instatgram.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project.instatgram.requestdto.SignupRequestDto;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
 @Entity(name = "users")
-public class User extends Timestamped{
+public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -31,6 +31,13 @@ public class User extends Timestamped{
         this.username = username;
         this.password = password;
         this.nickname = nickname;
+        this.role = role;
+    }
+
+    public User(SignupRequestDto reqDto, UserRoleEnum role) {
+        this.username = reqDto.getUsername();
+        this.password = reqDto.getPassword();
+        this.nickname = reqDto.getNickname();
         this.role = role;
     }
 }

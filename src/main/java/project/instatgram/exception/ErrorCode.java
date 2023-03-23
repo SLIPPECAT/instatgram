@@ -13,7 +13,7 @@ public enum ErrorCode {
     DIFFERENT_AUTHOR(HttpStatus.BAD_REQUEST, "작성자만 삭제/수정할 수 있습니다."),
     DUPLICATED_USERNAME(HttpStatus.BAD_REQUEST, "중복된 username 입니다."),
     USER_NOTFOUND(HttpStatus.BAD_REQUEST, "회원을 찾을 수 없습니다."),
-    NOT_FOUND_SIGNUP_USER(HttpStatus.BAD_REQUEST, "회원가입 형식이 맞지 않습니다."),
+    NOT_FOUND_SIGNUP_USER(HttpStatus.BAD_REQUEST, "비밀번호 형식에 맞지 않습니다."),
 
     // 404 NOT_FOUND 잘못된 리소스 접근
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."),

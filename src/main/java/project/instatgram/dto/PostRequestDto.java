@@ -8,11 +8,9 @@ import lombok.NoArgsConstructor;
 public class PostRequestDto {
     private String title;
     private String content;
-    private String nickname;
 
     public PostRequestDto(PostRequestDto postRequestDto) {
         this.title = postRequestDto.getTitle();
         this.content = postRequestDto.getContent();
-        this.nickname = postRequestDto.getNickname();
     }
 }

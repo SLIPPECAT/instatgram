@@ -2,6 +2,7 @@ package project.instatgram.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.catalina.User;
 import project.instatgram.entity.Comment;
 import project.instatgram.entity.Post;
 
@@ -23,6 +24,17 @@ public class PostResponseDto {
 
     private final List<CommentResponseDto> commentList = new ArrayList<>();
 
+    public PostResponseDto(Post post , User user) {
+        this.id = post.getId();
+        this.title = post.getTitle();
+        this.content = post.getContent();
+        this.nickname = post.getNickname();
+        this.createAt = post.getCreatedAt();
+        this.modifiedAt = post.getModifiedAt();
+        for(Comment comment : post.getComments()){
+            commentList.add(new CommentResponseDto(comment));
+        }
+    }
     public PostResponseDto(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();

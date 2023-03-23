@@ -59,6 +59,7 @@ public class CommentService {
         return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
     }
 
+    @Transactional
     public ResponseEntity<?> delete(Long commentId, User user) {
         Comment comment = getComment(commentId);
         if (!(comment.getUser().getId().equals(user.getId()) || user.getRole().equals(UserRoleEnum.ADMIN))) {

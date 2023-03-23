@@ -29,6 +29,7 @@ public class PostService {
         return postResponseDto;
     }
     // 게시글 전체 조회
+    @Transactional
     public List<PostResponseDto> findAllPost() {
         List<PostResponseDto> postResponseDtoList = new ArrayList<>();
         List<Post> postList = postRepository.findAll();
@@ -39,6 +40,7 @@ public class PostService {
     }
 
     // 삭제
+    @Transactional
     public ResponseEntity<Object> delete(Long id, User user) {
         Post post = postRepository.findById(id).orElseThrow(
                 ()-> new IllegalArgumentException("게시글이 존재하지 않습니다."));

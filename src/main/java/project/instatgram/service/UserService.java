@@ -2,6 +2,7 @@ package project.instatgram.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void signup(SignupRequestDto requestDto){
+    public ResponseEntity<StatusResponseDto> signup(SignupRequestDto requestDto){
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
         // 비밀번호 암호화
@@ -36,7 +37,6 @@ public class UserService {
         Optional<User> found = userRepository.findByUsername(requestDto.getUsername());
         if(found.isPresent()){ throw new IllegalArgumentException("아이디가 이미 존재합니다.");}
         UserRoleEnum role = UserRoleEnum.USER;
-
         // 관리자 여부 확인
         if(requestDto.isAdmin()){
             if(!requestDto.getAdminToken().equals(ADMIN_TOKEN)){
@@ -47,6 +47,9 @@ public class UserService {
         // 유저 생성
         User user = new User(username, encodedPassword, nickname, role);
         userRepository.save(user);
+
+        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "회원가입 성공!");
+        return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
     }
 
     @Transactional
@@ -62,6 +65,8 @@ public class UserService {
         }
         StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "로그인 완료");
         // Jwt 토큰 발급
+
+        String token = jwtUtil.createToken(user.getUsername(), user.getNickname(), user.getRole());
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getNickname(), user.getRole()));
     }
 }

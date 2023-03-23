@@ -12,6 +12,7 @@ public class CommentResponseDto {
     private String nickname;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private Long postId;
 
 
 
@@ -24,12 +25,12 @@ public class CommentResponseDto {
 
     }
 
-//    public CommentResponseDto(Comment comment, Long postId) {
-//        this.id = comment.getId();
-//        this.comment = comment.getComment();
-//        this.nickname = comment.getUser().getNickname();
-//        this.createdAt = comment.getCreatedAt();
-//        this.modifiedAt = comment.getModifiedAt();
-//
-//    }
+   public CommentResponseDto(Comment comment, Long postId) {
+       this.id = comment.getId();
+       this.comment = comment.getComment();
+       this.nickname = comment.getUser().getNickname();
+       this.createdAt = comment.getCreatedAt();
+       this.modifiedAt = comment.getModifiedAt();
+       this.postId = postId
+   }
 }

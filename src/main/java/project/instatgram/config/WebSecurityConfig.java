@@ -65,13 +65,13 @@ public class WebSecurityConfig {
 
         return http.build();
     }
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource(){
 
         CorsConfiguration config = new CorsConfiguration();
 // 사전에 약속된 출처를 명시
         config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("http://hanghae99-istagrem.s3-website.ap-northeast-2.amazonaws.com");
         config.addExposedHeader(JwtUtil.AUTHORIZATION_HEADER);
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");

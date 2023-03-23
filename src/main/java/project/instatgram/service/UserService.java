@@ -36,6 +36,9 @@ public class UserService {
         // 사용자 확인
         Optional<User> found = userRepository.findByUsername(requestDto.getUsername());
         if(found.isPresent()){ throw new IllegalArgumentException("아이디가 이미 존재합니다.");}
+
+        Optional<User> nick = userRepository.findByUsername(requestDto.getNickname());
+        if(nick.isPresent()){ throw new IllegalArgumentException("닉네임이 이미 존재합니다.");}
         UserRoleEnum role = UserRoleEnum.USER;
         // 관리자 여부 확인
         if(requestDto.isAdmin()){

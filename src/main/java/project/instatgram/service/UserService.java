@@ -27,7 +27,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void signup(SignupRequestDto requestDto){
+    public ResponseEntity<StatusResponseDto> signup(SignupRequestDto requestDto){
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
         // 비밀번호 암호화
@@ -47,6 +47,9 @@ public class UserService {
         // 유저 생성
         User user = new User(username, encodedPassword, nickname, role);
         userRepository.save(user);
+
+        StatusResponseDto statusResponseDto = new StatusResponseDto(HttpStatus.OK.value(), "회원가입 성공!");
+        return ResponseEntity.status(HttpStatus.OK).body(statusResponseDto);
     }
 
     @Transactional

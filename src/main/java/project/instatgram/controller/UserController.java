@@ -23,7 +23,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @CrossOrigin
+
     @PostMapping("/signup")
     public ResponseEntity<StatusResponseDto> signup(@Validated @RequestBody SignupRequestDto requestDto, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
@@ -32,7 +32,7 @@ public class UserController {
         return userService.signup(requestDto);
     }
 
-    @CrossOrigin
+
     @PostMapping("/login")
     public ResponseEntity<Object> login(@Validated @RequestBody LoginRequestDto requestDto, HttpServletResponse responseDto){
         userService.login(requestDto, responseDto);
